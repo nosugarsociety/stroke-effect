@@ -1,6 +1,5 @@
-import $ from 'jquery';
-
-import './module/cat';
-
-window.$ = $;
-window.jQuery = $;
+(() => {
+    window.addEventListener('load', () => {
+        document.body.classList.remove('before-load');
+    });
+})();
