@@ -19,6 +19,11 @@
         pencil: document.querySelector('#scroll-section-0 .pencil'),
         ribbonPath: document.querySelector('.ribbon-path path'),
       },
+      values: {
+        messageA_opacity_in: [0, 1, { start: 0.1, end: 0.2 }],
+        pencilLogo_width_in: [1000, 200, { start: 0.1, end: 0.4 }],
+        path_dashoffset_in: [1401, 0, { start: 0.2, end: 0.4 }],
+      },
     },
   ];
 
@@ -44,8 +49,51 @@
     document.body.setAttribute('id', `show-scene-${currentScene}`);
   };
 
+  const scrollLoop = () => {
+    enterNewScene = false;
+    prevScrollHeight = 0;
+
+    for (let i = 0; i < currentScene; i++) {
+      prevScrollHeight += sceneInfo[i].scrollHeight;
+    }
+
+    // if (yOffset < prevScrollHeight + sceneInfo[currentScene].scrollHeight) {
+    //   document.body.classList.remove('scroll-effect-end');
+    // }
+
+    if (yOffset > prevScrollHeight + sceneInfo[currentScene].scrollHeight) {
+      enterNewScene = true;
+
+      if (currentScene === sceneInfo.length - 1) {
+        document.body.classList.add('scroll-effect-end');
+      }
+
+      if (currentScene < sceneInfo.length - 1) {
+        currentScene++;
+      }
+      document.body.setAttribute('id', `show-scene-${currentScene}`);
+    } else {
+      document.body.classList.remove('scroll-effect-end');
+    }
+
+    if (yOffset < prevScrollHeight) {
+      console.log('yes');
+      enterNewScene = true;
+      if (currentScene === 0) return;
+      currentScene--;
+      document.body.setAttribute('id', `show-scene-${currentScene}`);
+    }
+
+    if (enterNewScene) return;
+  };
+
   window.addEventListener('load', () => {
     document.body.classList.remove('before-load');
     setLayout();
+
+    window.addEventListener('scroll', () => {
+      yOffset = window.pageYOffset;
+      scrollLoop();
+    });
   });
 })();
