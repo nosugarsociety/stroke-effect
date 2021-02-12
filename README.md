@@ -2,6 +2,9 @@
 ## Features
 Animate svg stroke-dasharray property.
 
+## Staging site 
+https://wizardly-varahamihira-73f593.netlify.app/
+
 ## Usage
 Installation
 ```
