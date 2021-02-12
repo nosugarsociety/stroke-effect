@@ -25,6 +25,13 @@
         messageA_translateY_in: [20, 0, { start: 0.1, end: 0.2 }],
         messageA_translateY_out: [0, -20, { start: 0.3, end: 0.4 }],
 
+        messageB_opacity_in: [0, 1, { start: 0.41, end: 0.65 }],
+        messageB_opacity_out: [1, 0, { start: 0.66, end: 0.7 }],
+
+        pencil_right: [-10, 70, { start: 0.3, end: 0.8 }],
+        pencil_bottom: [-80, 100, { start: 0.3, end: 0.8 }],
+        pencil_rotate: [-120, -200, { start: 0.3, end: 0.8 }],
+
         pencilLogo_width_in: [1000, 200, { start: 0.1, end: 0.4 }],
         pencilLogo_width_out: [200, 50, { start: 0.4, end: 0.8 }],
         pencilLogo_translateX_in: [-10, -20, { start: 0.2, end: 0.4 }],
@@ -133,10 +140,11 @@
             values.pencilLogo_width_out,
             currentYOffset
           )}vw`;
+
           obj.pencilLogo.style.transform = `translate3d(${calcValue(
             values.pencilLogo_translateX_out,
             currentYOffset
-          )}%, -50%, 0})`;
+          )}%, -50%, 0)`;
         }
 
         if (scrollRatio < 0.5) {
@@ -145,11 +153,43 @@
             currentYOffset
           );
         } else {
-          obj.ribbonPath.style.strokeDashoffset = calcValues(
+          obj.ribbonPath.style.strokeDashoffset = calcValue(
             values.path_dashoffset_out,
             currentYOffset
           );
         }
+
+        if (scrollRatio <= 0.65) {
+          obj.messageB.style.opacity = calcValue(
+            values.messageB_opacity_in,
+            currentYOffset
+          );
+        } else {
+          obj.messageB.style.opacity = calcValue(
+            values.messageB_opacity_out,
+            currentYOffset
+          );
+        }
+
+        if (scrollRatio < 0.8 && scrollRatio > 0.2) {
+          obj.pencil.style.right = `${calcValue(
+            values.pencil_right,
+            currentYOffset
+          )}%`;
+          obj.pencil.style.bottom = `${calcValue(
+            values.pencil_bottom,
+            currentYOffset
+          )}%`;
+          obj.pencil.style.transform = `rotate(${calcValue(
+            values.pencil_rotate,
+            currentYOffset
+          )}deg)`;
+        }
+
+        obj.pencilLogo.style.opacity = calcValue(
+          values.pencilLogo_opacity_out,
+          currentYOffset
+        );
 
         break;
     }
