@@ -1,6 +1,6 @@
 # Stroke effect using Vanilla Javascript
 ## Features
-
+Animate svg stroke-dasharray property.
 
 ## Usage
 Installation
@@ -12,6 +12,7 @@ yarn
 Start dev server for development
 ```
 npm start
+
 or 
 yarn start-yarn
 ```
